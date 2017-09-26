@@ -1,10 +1,10 @@
 import socket,os,sys
 import threading 
 from Crypto.Cipher import AES
-target_host="192.168.43.195"
-target_port=5009
+i=socket.gethostbyname(socket.gethostname())
+port=5009
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-client.connect((target_host,target_port))
+client.connect((i,port))
 response1=client.recv(1024)
 print response1
 b=raw_input("Enter your name:")
