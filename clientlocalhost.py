@@ -25,7 +25,7 @@ def decrypt(ciphertext,key,iv):
     	return plaintext.rstrip(b"\0")
 def message_send():
 	while True:
-                a=raw_input("[::Enter Message to send to everyone::]")
+                a=raw_input("[*]Enter Message to send to everyone-->")
                 encrypted_message=encrypt(a,iv,key)
     		if(a=="quit"):
                         print "\n[You are Logged out from chat room]"
