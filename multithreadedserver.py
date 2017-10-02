@@ -3,7 +3,7 @@ import socket,os
 from Crypto.Cipher import AES
 i=socket.gethostbyname(socket.gethostname())
 server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-port=5009
+port=5002
 add=(i,port)
 server.bind(add)
 client_add=[]
@@ -32,28 +32,28 @@ def handle_client():
     print "User %s has joined the chatroom" %(response1)
     object1="User %s has joined the chatroom" %(response1)
     enc_message1=encrypt(object1,iv,key)
-    broadcast1(conn,enc_message1)
+    broadcast(conn,enc_message1)
     while True: 
         response2=conn.recv(4096)
         decrypted_message=decrypt(response2,key,iv)
-        message="The user %s has sent a message=> %s" %(response1,decrypted_message) 
-        enc_message2=encrypt(message,iv,key)
-        broadcast2(conn,enc_message2)
+        if decrypted_message=="quit":
+        	message="The user %s has logged out of the chatroom" %(response1)
+                print message 
+                enc_message2=encrypt(message,iv,key)
+                broadcast(conn,enc_message2)
+                client.close()
+        else:
+            message="The user %s has sent a message=> %s" %(response1,decrypted_message) 
+            enc_message2=encrypt(message,iv,key)
+            broadcast(conn,enc_message2)
     conn.close()      
 for i in range(5):
     threading.Thread(target=handle_client).start()
-def broadcast1(connection,enc_message1):
+def broadcast(connection,enc_message):
 	for client_conn in client_add:
         	if client_conn!=connection:
                 	try:
                         	client_conn.send(enc_message1)
-                        except:
-                        	client_conn.close()
-def broadcast2(connection,enc_message2):
-	for client_conn in client_add:
-        	if client_conn!=connection:
-                	try:
-                        	client_conn.send(enc_message2)
                         except:
                         	client_conn.close()
 

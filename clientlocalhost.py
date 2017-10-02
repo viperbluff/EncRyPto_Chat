@@ -1,7 +1,7 @@
 import socket,os,sys
 import threading 
 from Crypto.Cipher import AES
-i="ip address of server"
+i="192.168.1.28"
 port=5009
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 client.connect((i,port))
@@ -28,8 +28,8 @@ def message_send():
                 a=raw_input("[*]Enter Message to send to everyone-->")
                 encrypted_message=encrypt(a,iv,key)
     		if(a=="quit"):
+                        client.send(a)
                         print "\n[You are Logged out from chat room]"
-        		client.close()
     		else:
         		client.send(encrypted_message)
         client.close() 
