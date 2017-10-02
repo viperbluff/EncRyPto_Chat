@@ -2,7 +2,7 @@ import socket,os,sys
 import threading 
 from Crypto.Cipher import AES
 i="192.168.1.28"
-port=5009
+port=9002
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 client.connect((i,port))
 response1=client.recv(1024)
@@ -28,8 +28,9 @@ def message_send():
                 a=raw_input("[*]Enter Message to send to everyone-->")
                 encrypted_message=encrypt(a,iv,key)
     		if(a=="quit"):
-                        client.send(a)
+                        client.send(encrypted_message)
                         print "\n[You are Logged out from chat room]"
+                        client.close()
     		else:
         		client.send(encrypted_message)
         client.close() 
@@ -40,6 +41,6 @@ def message_response():
                 print "\n%s" %(decrypted_message)
                 print "::Type [Below] to send message to everyone::"
 	client.close()
-for i in range(5):
+if __name__=='__main__':
 	threading.Thread(target=message_send).start()
         threading.Thread(target=message_response).start()

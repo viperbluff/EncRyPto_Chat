@@ -3,7 +3,7 @@ import socket,os
 from Crypto.Cipher import AES
 i=socket.gethostbyname(socket.gethostname())
 server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-port=5002
+port=9002
 add=(i,port)
 server.bind(add)
 client_add=[]
@@ -20,7 +20,6 @@ def handle_client():
     iv = "abcdefghijklmnop"
     def pad(s):
     	return s + b"\0" * (AES.block_size - len(s) % AES.block_size)
-
     def encrypt(message,iv,key,key_size=256):
     	message = pad(message)
     	cipher = AES.new(key, AES.MODE_CBC,iv)
@@ -41,7 +40,7 @@ def handle_client():
                 print message 
                 enc_message2=encrypt(message,iv,key)
                 broadcast(conn,enc_message2)
-                client.close()
+                client_add.remove(conn)
         else:
             message="The user %s has sent a message=> %s" %(response1,decrypted_message) 
             enc_message2=encrypt(message,iv,key)
@@ -53,7 +52,7 @@ def broadcast(connection,enc_message):
 	for client_conn in client_add:
         	if client_conn!=connection:
                 	try:
-                        	client_conn.send(enc_message1)
+                        	client_conn.send(enc_message)
                         except:
                         	client_conn.close()
 
