@@ -3,7 +3,7 @@ import socket,os
 from Crypto.Cipher import AES
 i=socket.gethostbyname(socket.gethostname())
 server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-port=9003
+port=9005
 add=(i,port)
 server.bind(add)
 client_add=[]
@@ -20,7 +20,7 @@ def handle_client():
     iv = "abcdefghijklmnop"
     def pad(s):
     	return s + b"\0" * (AES.block_size - len(s) % AES.block_size)
-    def encrypt(message,iv,key,key_size=256):
+    def encrypt(message,iv,key):
     	message = pad(message)
     	cipher = AES.new(key, AES.MODE_CBC,iv)
     	return cipher.encrypt(message)

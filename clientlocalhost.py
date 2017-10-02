@@ -2,10 +2,10 @@ import socket,os,sys
 import threading 
 from Crypto.Cipher import AES
 i="192.168.1.28"
-port=9002
+port=9005
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 client.connect((i,port))
-response1=client.recv(1024)
+response1=client.recv(4096)
 print response1
 b=raw_input("Enter your name:")
 client.send(b)
@@ -15,7 +15,7 @@ key = b'\xbf\xc0\x85)\x10nc\x94\x02)j\xdf\xcb\xc4\x94\x9d(\x9e[EX\xc8\xd5\xbfI{\
 iv = "abcdefghijklmnop"
 def pad(s):
     return s + b"\0" * (AES.block_size - len(s) % AES.block_size)
-def encrypt(message,iv,key,key_size=256):
+def encrypt(message,iv,key):
     message = pad(message)
     cipher = AES.new(key, AES.MODE_CBC,iv)
     return cipher.encrypt(message)
