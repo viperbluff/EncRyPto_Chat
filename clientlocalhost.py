@@ -1,8 +1,8 @@
 import socket,os,sys
 import threading 
 from Crypto.Cipher import AES
-i="192.168.1.28"
-port=9005
+i="ip address of server"
+port=[port]
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 client.connect((i,port))
 response1=client.recv(4096)
