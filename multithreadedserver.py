@@ -3,7 +3,7 @@ import socket,os
 from Crypto.Cipher import AES
 i=socket.gethostbyname(socket.gethostname())
 server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-port=9002
+port=9003
 add=(i,port)
 server.bind(add)
 client_add=[]
@@ -46,7 +46,7 @@ def handle_client():
             enc_message2=encrypt(message,iv,key)
             broadcast(conn,enc_message2)
     conn.close()      
-for i in range(5):
+for i in range(10):
     threading.Thread(target=handle_client).start()
 def broadcast(connection,enc_message):
 	for client_conn in client_add:
