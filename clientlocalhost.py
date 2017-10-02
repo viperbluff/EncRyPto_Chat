@@ -1,7 +1,7 @@
 import socket,os,sys
 import threading 
 from Crypto.Cipher import AES
-i=socket.gethostbyname(socket.gethostname())
+i="ip address of server"
 port=5009
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 client.connect((i,port))
