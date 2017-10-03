@@ -1,9 +1,9 @@
 import threading
-import socket,os
+import socket,os,sys
 from Crypto.Cipher import AES
 i=socket.gethostbyname(socket.gethostname())
 server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-port=9005
+port=[port no]
 add=(i,port)
 server.bind(add)
 client_add=[]
@@ -30,8 +30,7 @@ def handle_client():
     	return plaintext.rstrip(b"\0") 
     print "User %s has joined the chatroom" %(response1)
     object1="User %s has joined the chatroom" %(response1)
-    enc_message1=encrypt(object1,iv,key)
-    broadcast(conn,enc_message1)
+    broadcast(conn,object1)
     while True: 
         response2=conn.recv(4096)
         decrypted_message=decrypt(response2,key,iv)
@@ -40,7 +39,9 @@ def handle_client():
                 print message 
                 enc_message2=encrypt(message,iv,key)
                 broadcast(conn,enc_message2)
+                conn.send("quitted")
                 client_add.remove(conn)
+                break
         else:
             message="The user %s has sent a message=> %s" %(response1,decrypted_message) 
             enc_message2=encrypt(message,iv,key)
@@ -55,4 +56,3 @@ def broadcast(connection,enc_message):
                         	client_conn.send(enc_message)
                         except:
                         	client_conn.close()
-

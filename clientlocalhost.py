@@ -30,16 +30,22 @@ def message_send():
     		if(a=="quit"):
                         client.send(encrypted_message)
                         print "\n[You are Logged out from chat room]"
-                        client.close()
+                        break
     		else:
         		client.send(encrypted_message)
         client.close() 
 def message_response():
         while True:
         	response=client.recv(4096)
-                decrypted_message=decrypt(response,key,iv)
-                print "\n%s" %(decrypted_message)
-                print "::Type [Below] to send message to everyone::"
+                if "joined" in response:
+                	print "\n%s" %(response)
+                        print "::Type [Below] to send message to everyone::"
+                elif "quitted" in response:
+                	break
+                else:
+                	decrypted_message=decrypt(response,key,iv)
+                	print "\n%s" %(decrypted_message)
+                	print "::Type [Below] to send message to everyone::"
 	client.close()
 if __name__=='__main__':
 	threading.Thread(target=message_send).start()
