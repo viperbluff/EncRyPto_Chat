@@ -1,13 +1,14 @@
-import socket,os,sys
+import socket
 import threading 
 from Crypto.Cipher import AES
 i="ip address of server"
-port=[port]
+port=[port no]
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 client.connect((i,port))
 response1=client.recv(4096)
+print ""
 print response1
-b=raw_input("Enter your name:")
+b=raw_input("\n[*]Enter your name->")
 client.send(b)
 ok=client.recv(4096)
 print ok
