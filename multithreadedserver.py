@@ -3,7 +3,7 @@ import socket
 from Crypto.Cipher import AES
 i=socket.gethostbyname(socket.gethostname())
 server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-port=[port no]
+port=[Port No]
 add=((i,port))
 server.bind(add)
 client_add=[]
