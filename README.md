@@ -3,16 +3,16 @@
 
 Requirements
 ---------------------------------------------
-** [python 2.7.9] 
+** Python 2.7.9 
 ** Client python code on User's machine and server python code on the machine which you want to set up as server.
-
+** Works in Both Windows as Well as Linux operating systems.
 Features
 ---------------------------------------------
->>> Selective AES Encryption
->>> MUltithreading support
->>> TCP protocol for communication
->>>256 bit key used for encryption 
->>> Chat simultaneously with 10 clients.
+1] Selective AES Encryption
+2] MUltithreading support
+3] TCP protocol for communication
+4] 256 bit key used for encryption 
+5] Chat simultaneously with 10 clients.
 
 
 Description
