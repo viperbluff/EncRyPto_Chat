@@ -9,7 +9,7 @@ server.bind(add)
 client_add=[]
 client_name=[]
 print "[*]waiting for request at %s : %d" %(i,port)
-server.listen(10)
+server.listen(100)
 def handle_client():
     conn,addr=server.accept()
     client_add.append(conn)
@@ -51,7 +51,7 @@ def handle_client():
             enc_message2=encrypt(message,iv,key)
             broadcast(conn,enc_message2,response1)
     conn.close()      
-for i in range(10):
+for i in range(100):
     threading.Thread(target=handle_client).start()
 def broadcast(connection,enc_message,response1):
 	for client_conn in client_add:

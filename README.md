@@ -19,7 +19,7 @@ Features
 
 4] 256 bit key used for encryption 
 
-5] Chat simultaneously with 10 clients.
+5] Chat simultaneously with 100 clients.
 
 
 Description
