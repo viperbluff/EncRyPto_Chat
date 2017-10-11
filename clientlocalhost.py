@@ -38,10 +38,7 @@ def message_send():
 def message_response():
         while True:
         	response=client.recv(4096)
-                if "joined" in response:
-                	print "\n%s" %(response)
-                        print "::Type [Below] to send message to everyone::"
-                elif "quitted" in response:
+                if "quitted" in response:
                 	break
                 else:
                 	decrypted_message=decrypt(response,key,iv)
